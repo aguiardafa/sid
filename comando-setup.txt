@@ -1,0 +1,72 @@
+COMANDOS SETUP
+
+1. "Recomendado" Utilizando Python com PyEnv
+	"Para não correr o risco de danificar o Python que já vem instalado no sistema, RECOMENDA-SE o Pyenv, que possibilita instalar versões do Python apenas para o usuário"
+1.1. Instalar Pyenv no Ubuntu:
+  $ sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm gettext libncurses5-dev tk-dev tcl-dev blt-dev libgdbm-dev git python-dev python3-dev aria2 vim libnss3-tools python3-venv liblzma-dev libpq-dev
+  $ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+1.2. Habilitar utilização do Pyenv:
+1.2.1. Acrescentar comandos nos arquivo ~/.profile e ~/.bashrc:
+  $ gedit ~/.profile
+	..
+
+	# PYENV
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init --path)"
+
+	# if running bash
+	if [ -n "$BASH_VERSION" ]; then
+	    # include .bashrc if it exists
+	    if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	    fi
+	fi
+
+	...
+	
+	Obs.: Observar que foi criado uma seção para o PyEnv e essa seção deve vir antes da parte que carrega o arquivo ~/.bashrc. Partes do arquivo foram omitidas para melhor clareza.
+  $ gedit ~/.bashrc
+	# PYENV
+	eval "$(pyenv init -)"
+	
+	Obs.: Colar no final do arquivo
+  # Executar comando para carregar a inicialização do .profile:
+  $ source ~/.profile
+1.2.2. Instalação de versão do python:
+  $ pyenv install <versao_desejada>
+  $ pyenv versions
+	* system
+	<versao_desejada> (set by /home/<SEU_USUARIO>/.pyenv/version)
+1.2.3. Setando a versao python global:
+  $ pyenv global <versao_desejada_entre_as_instaladas>
+  $ pyenv versions
+	system
+	*<versao_desejada> (set by /home/<SEU_USUARIO>/.pyenv/version)
+  $ which python
+	/home/<SEU_USUARIO>/.pyenv/shims/python
+  $ python -V
+	Python <versao_desejada>
+	
+1. Utilizando Python nativo do Linux
+1.1. Instalar Python no Ubuntu:
+ - Já vem instalado
+
+2. Instalar venv no Linux:
+  $ sudo apt install python3.8-venv
+ 
+  # criar o ambiente virtual e ativa-lo
+  # criar (com terminal aberto na raiz do seu projeto)
+  $ python -m venv .venv
+  # ativar
+  $ source .venv/bin/activate
+  # conferir versao do python na Virtualenv
+  $ python -V
+  # conferir de onde o python está sendo executado
+  $ which python
+  	/home/<SEU_USUARIO>/Desktop/<DIRETORIO_DO_PROJETO>/.venv/bin/python
+
+3. Instalar bibliotecas Django e Pillow
+ pip install django
+ pip install pillow
