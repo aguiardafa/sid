@@ -70,3 +70,4 @@ COMANDOS SETUP
 3. Instalar bibliotecas Django e Pillow
  pip install django
  pip install pillow
+ pip install flake8
