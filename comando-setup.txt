@@ -67,7 +67,5 @@ COMANDOS SETUP
   $ which python
   	/home/<SEU_USUARIO>/Desktop/<DIRETORIO_DO_PROJETO>/.venv/bin/python
 
-3. Instalar bibliotecas Django e Pillow
- pip install django
- pip install pillow
- pip install flake8
+3. Instalar bibliotecas que são dependências do Projeto
+ $ pip install -r requirements.txt
