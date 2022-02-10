@@ -1,71 +1,114 @@
 COMANDOS SETUP
 
-1. "Recomendado" Utilizando Python com PyEnv
-	"Para não correr o risco de danificar o Python que já vem instalado no sistema, RECOMENDA-SE o Pyenv, que possibilita instalar versões do Python apenas para o usuário"
-1.1. Instalar Pyenv no Ubuntu:
-  $ sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm gettext libncurses5-dev tk-dev tcl-dev blt-dev libgdbm-dev git python-dev python3-dev aria2 vim libnss3-tools python3-venv liblzma-dev libpq-dev
-  $ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+1. Instalar PYTHON:
+	1.1. Com PyEnv: (Recomendado utilizando Python com PyEnv)
+		"gerenciador de versões python"
+		"Possibilita instalar versões do Python apenas para o usuário, não correndo o risco de danificar o Python que já vem instalado no sistema"
 
-1.2. Habilitar utilização do Pyenv:
-1.2.1. Acrescentar comandos nos arquivo ~/.profile e ~/.bashrc:
-  $ gedit ~/.profile
-	..
+		1.1.1. Instalar Pyenv no Ubuntu:
+	  		$ sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm gettext libncurses5-dev tk-dev tcl-dev blt-dev libgdbm-dev git python-dev python3-dev aria2 vim libnss3-tools python3-venv liblzma-dev libpq-dev
+		  	$ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+		1.1.2. Habilitar utilização do Pyenv:
+			1.1.2.1. Acrescentar comandos nos arquivo ~/.profile e ~/.bashrc:
+				$ gedit ~/.profile
+					..
+					# PYENV
+					export PYENV_ROOT="$HOME/.pyenv"
+					export PATH="$PYENV_ROOT/bin:$PATH"
+					eval "$(pyenv init --path)"
 
-	# PYENV
-	export PYENV_ROOT="$HOME/.pyenv"
-	export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init --path)"
+					# if running bash
+					if [ -n "$BASH_VERSION" ]; then
+						# include .bashrc if it exists
+						if [ -f "$HOME/.bashrc" ]; then
+						. "$HOME/.bashrc"
+						fi
+					fi
+					...
 
-	# if running bash
-	if [ -n "$BASH_VERSION" ]; then
-	    # include .bashrc if it exists
-	    if [ -f "$HOME/.bashrc" ]; then
-		. "$HOME/.bashrc"
-	    fi
-	fi
+					Obs.: Observar que foi criado uma seção para o PyEnv e essa seção deve vir antes da parte que carrega o arquivo ~/.bashrc. Partes do arquivo foram omitidas para melhor clareza.
+				$ gedit ~/.bashrc
+					# PYENV
+					eval "$(pyenv init -)"
 
-	...
-	
-	Obs.: Observar que foi criado uma seção para o PyEnv e essa seção deve vir antes da parte que carrega o arquivo ~/.bashrc. Partes do arquivo foram omitidas para melhor clareza.
-  $ gedit ~/.bashrc
-	# PYENV
-	eval "$(pyenv init -)"
-	
-	Obs.: Colar no final do arquivo
-  # Executar comando para carregar a inicialização do .profile:
-  $ source ~/.profile
-1.2.2. Instalação de versão do python:
-  $ pyenv install <versao_desejada>
-  $ pyenv versions
-	* system
-	<versao_desejada> (set by /home/<SEU_USUARIO>/.pyenv/version)
-1.2.3. Setando a versao python global:
-  $ pyenv global <versao_desejada_entre_as_instaladas>
-  $ pyenv versions
-	system
-	*<versao_desejada> (set by /home/<SEU_USUARIO>/.pyenv/version)
-  $ which python
-	/home/<SEU_USUARIO>/.pyenv/shims/python
-  $ python -V
-	Python <versao_desejada>
-	
-1. Utilizando Python nativo do Linux
-1.1. Instalar Python no Ubuntu:
- - Já vem instalado
+					Obs.: Colar no final do arquivo
+				# Executar comando para carregar a inicialização do .profile:
+				$ source ~/.profile
+			1.1.2.2. Instalação de versão do python:
+				$ pyenv install <versao_desejada>
+				$ pyenv versions
+					* system
+					<versao_desejada> (set by /home/<SEU_USUARIO>/.pyenv/version)
+			1.1.2.3. Setando a versao python global:
+				$ pyenv global <versao_desejada_entre_as_instaladas>
+				$ pyenv versions
+					system
+					*<versao_desejada> (set by /home/<SEU_USUARIO>/.pyenv/version)
+				$ which python
+					/home/<SEU_USUARIO>/.pyenv/shims/python
+				$ python -V
+					Python <versao_desejada>
+	1.2. Utilizando Python nativo do Linux
+		1.2.1. Instalar Python no Ubuntu:
+		 	- Já vem instalado
+2. Instalar Virtualenv no Projeto
+	2.1. Com PIPENV: (remomendado)
+		"criar um ambiente isolado e gerencia dependencias"
+		"A vantagem do Pipenv é poder fazer a gestão mais granular das dependências, tendo um arquivo para dependências diretas (Pipfile) e outro com todos dependência fixas (Pipfile.lock)."
+		"Junção do pip+venv"
 
-2. Instalar venv no Linux:
-  $ sudo apt install python3.8-venv
- 
-  # criar o ambiente virtual e ativa-lo
-  # criar (com terminal aberto na raiz do seu projeto)
-  $ python -m venv .venv
-  # ativar
-  $ source .venv/bin/activate
-  # conferir versao do python na Virtualenv
-  $ python -V
-  # conferir de onde o python está sendo executado
-  $ which python
-  	/home/<SEU_USUARIO>/Desktop/<DIRETORIO_DO_PROJETO>/.venv/bin/python
+		2.1.1. Instalar Pipenv no Ubuntu:
+		  $ pip install pipenv
+		  # para conferir
+		  $ pipenv
+		2.1.2. Configurar criação do virtualenv na raiz do Projeto:
+			2.1.2.1. Acrescentar variável no arquivo ~/.bashrc:
+				$ gedit ~/.bashrc
+					...
+					# PIPENV
+					export PIPENV_VENV_IN_PROJECT=1
+					# PYENV
+					eval "$(pyenv init -)"
+					...
+				# Executar comando para carregar o .bashrc:
+				$ source ~/.bashrc
+				# confirmar se a variável foi carregada
+				$ echo $PIPENV_VENV_IN_PROJECT
+		2.1.3. Habilitar utilização do Pipenv no Projeto
+			# com terminal aberto na raiz do seu projeto
+			$ pipenv install
+			Obs.: Observar que será criado o .venv e os arquivos Pipfile e Pipfile.lock
+	2.2. Com VENV:
+		"criar um ambiente isolado"
 
-3. Instalar bibliotecas que são dependências do Projeto
- $ pip install -r requirements.txt
+		2.2.1. Instalar venv no Linux:
+			$ sudo apt install python3.8-venv
+			# criar o ambiente virtual e ativa-lo
+			# criar (com terminal aberto na raiz do seu projeto)
+			$ python -m venv .venv
+			# ativar
+			$ source .venv/bin/activate
+			# conferir versao do python na Virtualenv
+			$ python -V
+			# conferir de onde o python está sendo executado
+			$ which python
+				/home/<SEU_USUARIO>/Desktop/<DIRETORIO_DO_PROJETO>/.venv/bin/python
+3. Instalar depêndencias do Projeto:
+	3.1. Com Pipfile e Pipfile.lock:
+		3.1.1. Instalar bibliotecas:
+			$ pipenv sync (vai instalar as dependências de acordo com o Pipfile.lock - build deterministico)
+			# ou
+			$ pipenv install (vai verificar se existe arquivo Pipfile e vai instalar também as dependências - porém vai recalcular as versões das dependências)
+			# para atualizar versão da dependencias
+			$ pipenv update
+			# para ver as dependências já instaladas
+			$ pipenv graph
+			# para rodar um comando com o pipenv
+			$ pipenv run <nome_comando>
+			# ativar virtualenv
+			$ pipenv shell
+	3.2. Com arquivo requirements:
+		3.2.1. Instalar bibliotecas
+	  		$ pip install -r requirements.txt
+	  		# para ver as dependências já instaladas
+	  		$ pip frezee
