@@ -135,3 +135,7 @@ dmypy.json
 .project
 .settings/
 bin/
+
+# Media & static files
+staticfiles/
+mediafiles/

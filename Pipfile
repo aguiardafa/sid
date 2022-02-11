@@ -9,6 +9,9 @@ pillow = "*"
 flake8 = "*"
 gunicorn = "*"
 python-decouple = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
+collectfast = "*"
 
 [dev-packages]
 
